@@ -268,42 +268,42 @@ class AppData {
 
   static final List<Map<String, dynamic>> productData = [
     {
-      "projectName": "Unity Dashboard",
+      "projectName": "Food",
       "category": "Design",
       "color": "A06AFA",
       "ratingsUpperNumber": 15,
       "ratingsLowerNumber": 20
     },
     {
-      "projectName": "Instagram   Shots🇺🇸",
+      "projectName": "Clothes",
       "category": "Marketing",
       "color": "8D96FF",
       "ratingsUpperNumber": 8,
       "ratingsLowerNumber": 20
     },
     {
-      "projectName": "Cubbies",
+      "projectName": "Electronics",
       "category": "Design",
       "color": "FF968E",
       "ratingsUpperNumber": 15,
       "ratingsLowerNumber": 20
     },
     {
-      "projectName": "OpenMind 🚀",
+      "projectName": "Medicine",
       "category": "Development",
       "color": "FFDE72",
       "ratingsUpperNumber": 19,
       "ratingsLowerNumber": 20
     },
     {
-      "projectName": "UI8 Platform",
+      "projectName": "Document",
       "category": "Design",
       "color": "A06AFA",
       "ratingsUpperNumber": 10,
       "ratingsLowerNumber": 20
     },
     {
-      "projectName": "3D Characters Inc.",
+      "projectName": "Furniture",
       "category": "Development",
       "color": "A6F69C",
       "ratingsUpperNumber": 18,

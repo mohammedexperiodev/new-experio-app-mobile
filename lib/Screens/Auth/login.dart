@@ -6,6 +6,7 @@ import 'package:taskez/Values/values.dart';
 import 'package:taskez/widgets/DarkBackground/darkRadialBackground.dart';
 import 'package:taskez/widgets/Forms/form_input_with%20_label.dart';
 import 'package:taskez/widgets/Navigation/back.dart';
+import 'package:taskez/Screens/Dashboard/timeline.dart';
 
 class Login extends StatefulWidget {
   final String email;
@@ -17,6 +18,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController _nameController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   bool obscureText = false;
   @override
@@ -48,6 +50,14 @@ class _LoginState extends State<Login> {
               ),
             ),
             SizedBox(height: 30),
+            // add
+            LabelledFormInput(
+                placeholder: "Name",
+                keyboardType: "text",
+                controller: _nameController,
+                obscureText: obscureText,
+                label: "Your Name"),
+            SizedBox(height: 15),
             LabelledFormInput(
                 placeholder: "Password",
                 keyboardType: "text",
@@ -59,8 +69,11 @@ class _LoginState extends State<Login> {
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
+                  // onPressed: () {
+                  //   Get.to(() => NewWorkSpace());
+                  // },
                   onPressed: () {
-                    Get.to(() => NewWorkSpace());
+                    Get.to(() => Timeline());
                   },
                   style: ButtonStyles.blueRounded,
                   child: Text('Sign In', style: GoogleFonts.lato(fontSize: 20, color: Colors.white))),
@@ -71,3 +84,8 @@ class _LoginState extends State<Login> {
     ]));
   }
 }
+
+
+
+
+

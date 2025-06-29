@@ -8,18 +8,24 @@ class OverviewTaskContainer extends StatelessWidget {
   final String imageUrl;
   final String numberOfItems;
   final String cardTitle;
+  final VoidCallback? onTap; // Added optional callback parameter
+
+
   const OverviewTaskContainer(
       {Key? key,
       required this.imageUrl,
       required this.backgroundColor,
       required this.cardTitle,
-      required this.numberOfItems})
+      required this.numberOfItems,
+      this.onTap}) // Added onTap to constructor
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
+    child: GestureDetector( // Wrapped Container with GestureDetector
+        onTap: onTap, // Added onTap functionality
       child: Container(
           width: double.infinity,
           padding: EdgeInsets.all(8),
@@ -55,6 +61,7 @@ class OverviewTaskContainer extends StatelessWidget {
               ])
             ],
           )),
+      ),
     );
   }
 }

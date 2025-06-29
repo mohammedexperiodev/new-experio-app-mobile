@@ -30,8 +30,9 @@ class OnboardingStart extends StatelessWidget {
             top: Utils.screenHeight * 0.7,
             right: 100,
             child: BackgroundImage(
-                scale: 1.0,
-                image: "assets/man-head.png",
+                scale: 1.5,
+                // image: "assets/man-head.png",
+                image: "assets/delivery-icon.png",
                 gradient: [HexColor.fromHex("92ECEC"), HexColor.fromHex("92ECEC")])),
 
         Positioned(
@@ -106,16 +107,16 @@ class OnboardingStart extends StatelessWidget {
                   children: [
                     RichText(
                       text: TextSpan(
-                        text: 'Task Management ',
+                        // text: 'Task Management ',
                         style: GoogleFonts.lato(fontSize: 18, color: HexColor.fromHex("FDA5FF")),
                         children: <TextSpan>[
                           TextSpan(
-                            text: '🙌',
+                            // text: '🙌',
                           ),
                         ],
                       ),
                     ),
-                    Text('Lets create\na space\nfor your workflows.',
+                    Text('Your deliveries\nmade easy\n.',
                         style: GoogleFonts.lato(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold)),
                     AppSpaces.verticalSpace20,
                     Container(

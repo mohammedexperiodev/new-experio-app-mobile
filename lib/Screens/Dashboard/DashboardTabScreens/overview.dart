@@ -5,6 +5,11 @@ import 'package:taskez/widgets/Dashboard/overview_task_container.dart';
 import 'package:taskez/widgets/Dashboard/task_progress_card.dart';
 import 'package:tcard/tcard.dart';
 
+// import 'package:taskez/Screens/Projects/project.dart'; // Import your ProjectScreen
+import 'package:taskez/Screens/Dashboard/projects.dart'; // Import your ProjectScreen
+import 'package:get/get.dart'; // Added Get import for navigation
+import 'package:taskez/Screens/Dashboard/search_screen.dart';
+
 class DashboardOverview extends StatelessWidget {
   const DashboardOverview({Key? key}) : super(key: key);
 
@@ -33,20 +38,33 @@ class DashboardOverview extends StatelessWidget {
         Column(
           children: [
             OverviewTaskContainer(
-                cardTitle: "Total Task",
-                numberOfItems: "16",
-                imageUrl: "assets/orange_pencil.png",
-                backgroundColor: HexColor.fromHex("EFA17D")),
+                cardTitle: "All orders",
+                numberOfItems: "40",
+                imageUrl: "assets/all_order_icon.png",
+                // backgroundColor: HexColor.fromHex("EFA17D,"),
+                backgroundColor: HexColor.fromHex("90CAF9"),
+                onTap: () { // Added navigation callback
+                   Get.to(() => SearchScreen());
+                }
+                ),
             OverviewTaskContainer(
                 cardTitle: "Completed",
                 numberOfItems: "32",
-                imageUrl: "assets/green_pencil.png",
-                backgroundColor: HexColor.fromHex("7FBC69")),
+                imageUrl: "assets/completed_icon.png",
+                // backgroundColor: HexColor.fromHex("2196F3")
+                backgroundColor: HexColor.fromHex("90CAF9")
+                ),
             OverviewTaskContainer(
-                cardTitle: "Total Projects",
+                cardTitle: "categories",
                 numberOfItems: "8",
-                imageUrl: "assets/cone.png",
-                backgroundColor: HexColor.fromHex("EDA7FA")),
+                imageUrl: "assets/category_icon.png",
+                // backgroundColor: HexColor.fromHex("EDA7FA"),
+                // backgroundColor: HexColor.fromHex("FFC107"),
+                backgroundColor: HexColor.fromHex("90CAF9"),
+                onTap: () { // Added navigation callback
+                  Get.to(() => ProjectScreen());
+                }
+                ),
           ],
         ),
       ],

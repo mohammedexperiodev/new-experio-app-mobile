@@ -15,7 +15,9 @@ class ProjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _settingsButtonTrigger = ValueNotifier(0);
     final _switchGridLayout = ValueNotifier(false);
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Scaffold( // Wrapped the entire content with Scaffold
+    backgroundColor: AppColors.primaryBackgroundColor, // Set background color to match your app theme
+    body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.only(right: 20, left: 20),
         child: SafeArea(
@@ -114,6 +116,7 @@ class ProjectScreen extends StatelessWidget {
           ),
         ),
       )
-    ]);
+    ]),
+    );
   }
 }
