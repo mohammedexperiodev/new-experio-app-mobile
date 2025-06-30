@@ -30,7 +30,8 @@ class OnboardingStart extends StatelessWidget {
             top: Utils.screenHeight * 0.7,
             right: 100,
             child: BackgroundImage(
-                scale: 1.5,
+                // scale: 1.1,
+                scale: 1.8,
                 // image: "assets/man-head.png",
                 image: "assets/delivery-icon.png",
                 gradient: [HexColor.fromHex("92ECEC"), HexColor.fromHex("92ECEC")])),
