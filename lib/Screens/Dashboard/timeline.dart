@@ -81,6 +81,7 @@ class _TimelineState extends State<Timeline> {
                       itemIndex: 3,
                       notifier: bottomNavigatorTrigger,
                       icon: FeatherIcons.search)
-                ])));
+                ]))
+                );
   }
 }
