@@ -9,6 +9,10 @@ import 'package:taskez/widgets/Dashboard/bottomNavigationItem.dart';
 import 'package:taskez/widgets/Dashboard/dashboard_add_icon.dart';
 import 'package:taskez/widgets/Dashboard/dashboard_add_sheet.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+import 'package:taskez/widgets/Navigation/sidebar_menu.dart';
+
+
 class Timeline extends StatefulWidget {
   Timeline({Key? key}) : super(key: key);
 
@@ -22,10 +26,59 @@ class _TimelineState extends State<Timeline> {
   StatelessWidget currentScreen = Dashboard();
 
   final PageStorageBucket bucket = PageStorageBucket();
+
+  // Define page titles for each screen
+  List<String> pageTitles = [
+    "Dashboard", // Index 0
+    "Tasks", // Index 1
+    "Notifications", // Index 2
+    "Search" // Index 3
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: HexColor.fromHex("#181a1f"),
+
+        // GLOBAL SIDE DRAWER - Defined once here, slides from RIGHT side
+        endDrawer: SidebarMenu(),
+        
+        // GLOBAL APP BAR - Defined once here, appears on all screens
+        appBar: AppBar(
+          backgroundColor: Colors.transparent, // Transparent background
+          elevation: 0, // No shadow
+          // Custom burger menu button on the RIGHT side
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.menu, // Hamburger menu icon
+                  color: Colors.white,
+                  size: 28,
+                ),
+                onPressed: () {
+                  // Opens the drawer from the RIGHT side
+                  Scaffold.of(context).openEndDrawer();
+                },
+              ),
+            ),
+          ],
+          // Dynamic page title based on current screen
+          title: ValueListenableBuilder(
+            valueListenable: bottomNavigatorTrigger,
+            builder: (context, value, child) {
+              return Text(
+                pageTitles[value as int], // Changes title based on selected tab
+                style: GoogleFonts.lato(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              );
+            },
+          ),
+          centerTitle: true,
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Stack(children: [
           DarkRadialBackground(
@@ -81,7 +134,6 @@ class _TimelineState extends State<Timeline> {
                       itemIndex: 3,
                       notifier: bottomNavigatorTrigger,
                       icon: FeatherIcons.search)
-                ]))
-                );
+                ])));
   }
 }
