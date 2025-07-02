@@ -12,7 +12,6 @@ import 'package:taskez/widgets/Dashboard/dashboard_add_sheet.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taskez/widgets/Navigation/sidebar_menu.dart';
 
-
 class Timeline extends StatefulWidget {
   Timeline({Key? key}) : super(key: key);
 
@@ -35,50 +34,129 @@ class _TimelineState extends State<Timeline> {
     "Search" // Index 3
   ];
 
+  // Current sidebar menu title (starts with default)
+  String currentSidebarTitle = "Dashboard";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor.fromHex("#181a1f"),
+        // backgroundColor: HexColor.fromHex("#181a1f"),
+        backgroundColor: Colors.blue,
 
-        // GLOBAL SIDE DRAWER - Defined once here, slides from RIGHT side
-        endDrawer: SidebarMenu(),
-        
-        // GLOBAL APP BAR - Defined once here, appears on all screens
+        // Enhanced sidebar with callback for title updates
+        endDrawer: SidebarMenu(
+          onMenuItemSelected: (String menuTitle) {
+            setState(() {
+              currentSidebarTitle = menuTitle;
+            });
+          },
+        ),
+
+        // Enhanced app bar with dynamic title switching
         appBar: AppBar(
-          backgroundColor: Colors.transparent, // Transparent background
-          elevation: 0, // No shadow
-          // Custom burger menu button on the RIGHT side
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           actions: [
             Builder(
-              builder: (context) => IconButton(
-                icon: Icon(
-                  Icons.menu, // Hamburger menu icon
-                  color: Colors.white,
-                  size: 28,
+              builder: (context) => Container(
+                margin: EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  // color: HexColor.fromHex("#357ABD").withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    // color: HexColor.fromHex("#357ABD").withOpacity(0.3),
+                    width: 1,
+                  ),
                 ),
-                onPressed: () {
-                  // Opens the drawer from the RIGHT side
-                  Scaffold.of(context).openEndDrawer();
-                },
+                child: IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  splashRadius: 20,
+                ),
               ),
             ),
           ],
-          // Dynamic page title based on current screen
+
+          // Smart title switching between bottom nav and sidebar
           title: ValueListenableBuilder(
             valueListenable: bottomNavigatorTrigger,
             builder: (context, value, child) {
-              return Text(
-                pageTitles[value as int], // Changes title based on selected tab
-                style: GoogleFonts.lato(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+              // Show sidebar title if it's not the default, otherwise show bottom nav title
+              String displayTitle = (currentSidebarTitle != "Dashboard" &&
+                      currentSidebarTitle.isNotEmpty)
+                  ? currentSidebarTitle
+                  : pageTitles[value as int];
+
+              return AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: animation.drive(
+                      Tween<Offset>(
+                        begin: Offset(0.0, -0.5),
+                        end: Offset.zero,
+                      ),
+                    ),
+                    child: FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    ),
+                  );
+                },
+                child: Row(
+                  key: ValueKey(displayTitle),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Icon indicator for sidebar vs bottom nav
+                    if (currentSidebarTitle != "Dashboard")
+                      Container(
+                        margin: EdgeInsets.only(right: 8),
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: HexColor.fromHex("#357ABD").withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+
+                    // Title text
+                    Flexible(
+                      child: Text(
+                        displayTitle,
+                        style: GoogleFonts.lato(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+
+                    // Breadcrumb indicator for nested items
+                    if (displayTitle.contains(' - '))
+                      Container(
+                        margin: EdgeInsets.only(left: 8),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                  ],
                 ),
               );
             },
           ),
           centerTitle: true,
         ),
+
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Stack(children: [
           DarkRadialBackground(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taskez/Constants/constants.dart';
-import 'package:taskez/Values/values.dart';
 import 'package:taskez/widgets/Buttons/progress_card_close_button.dart';
 
 class TaskProgressCard extends StatelessWidget {
@@ -42,48 +41,51 @@ class TaskProgressCard extends StatelessWidget {
           Positioned(top: 10, right: 10, child: ProgressCardCloseButton()),
           Positioned(
               top: 30,
-              bottom: 20,
+              bottom: 25, // Increased bottom margin
               right: 10,
               left: 20,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min, // Take only needed space
                 children: [
                   Text(cardTitle,
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.bold, fontSize: 22)),
-                  AppSpaces.verticalSpace10,
+                  SizedBox(height: 6), // Reduced spacing
                   Text('$rating is completed',
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.w500, fontSize: 16)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                          width: 220,
-                          height: 10,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20.0)),
-                              color: Colors.white),
-                          child: Row(children: [
-                            Expanded(
-                                flex: percentageGap,
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    bottomLeft: Radius.circular(20.0),
-                                  ),
-                                ))),
-                            Expanded(flex: 1, child: SizedBox())
-                          ])),
-                      Spacer(),
-                      Text("$progressFigure%",
-                          style: GoogleFonts.lato(fontWeight: FontWeight.bold))
-                    ],
+                  SizedBox(height: 8), // Controlled spacing
+                  Expanded(
+                    // Allow progress bar section to take remaining space
+                    child: Row(
+                      children: [
+                        Container(
+                            width: 220,
+                            height: 10,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0)),
+                                color: Colors.white),
+                            child: Row(children: [
+                              Expanded(
+                                  flex: percentageGap,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20.0),
+                                      bottomLeft: Radius.circular(20.0),
+                                    ),
+                                  ))),
+                              Expanded(flex: 1, child: SizedBox())
+                            ])),
+                        Spacer(),
+                        Text("$progressFigure%",
+                            style:
+                                GoogleFonts.lato(fontWeight: FontWeight.bold))
+                      ],
+                    ),
                   )
                 ],
               ))

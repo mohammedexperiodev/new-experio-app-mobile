@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 ///
@@ -7,9 +6,6 @@
 ///
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
@@ -36,7 +32,6 @@
 //   TextEditingController _passController = TextEditingController();
 //   bool _obscurePassword = true;
 
-
 //   // Add these new variables
 //   // final _formKey = GlobalKey<FormState>();
 //   // String? _emailError;
@@ -57,7 +52,7 @@
 //     final screenWidth = screenSize.width;
 //     final isTablet = screenWidth > 600;
 //     final isMobile = screenWidth < 600;
-    
+
 //     // Responsive padding and sizing
 //     // final horizontalPadding = isMobile ? 20.0 : (isTablet ? 40.0 : 60.0);
 //     final horizontalPadding = isMobile ? 30.0 : (isTablet ? 40.0 : 60.0);
@@ -95,10 +90,10 @@
 //                 children: [
 //                   // Navigation back button
 //                   // NavigationBack(),
-                  
+
 //                   // SizedBox(height: 30),
 //                   // SizedBox(height: 10),
-                  
+
 //                   // Logo Placeholder
 //                   Center(
 //                     child: SizedBox(
@@ -115,7 +110,7 @@
 //                     ),
 //                   ),
 //                   SizedBox(height: 10),
-                  
+
 //                   // Center the main content on larger screens
 //                   Center(
 //                     child: Container(
@@ -135,7 +130,7 @@
 //                             ),
 //                           ),
 //                           AppSpaces.verticalSpace20,
-                          
+
 //                           // Welcome message
 //                           Text(
 //                             "Welcome ! Please login to your account.",
@@ -155,9 +150,8 @@
 //                             prefixIcon: Icons.email_outlined,
 //                           ),
 
-                          
 //                           SizedBox(height: 20),
-                          
+
 //                           // Password input field
 //                           _buildStyledFormInput(
 //                             label: "Your Password",
@@ -168,12 +162,12 @@
 //                             prefixIcon: Icons.lock_outline,
 //                             suffixIcon: IconButton(
 //                               icon: Icon(
-//                                 _obscurePassword 
+//                                 _obscurePassword
 //                                     ? Icons.visibility_outlined
 //                                     : Icons.visibility_off_outlined,
 //                                 color: Colors.white54,
 //                                 // color: Colors.blueAccent,
-                                
+
 //                                 size: 22,
 //                               ),
 //                               onPressed: () {
@@ -183,9 +177,9 @@
 //                               },
 //                             ),
 //                           ),
-                          
+
 //                           SizedBox(height: isMobile ? 40 : 50),
-                          
+
 //                           // Sign In button
 //                           Container(
 //                             width: double.infinity,
@@ -235,9 +229,9 @@
 //                               ),
 //                             ),
 //                           ),
-                          
+
 //                           SizedBox(height: 30),
-                          
+
 //                           // Bottom Links: Forgot Password and Sign Up
 //                           Row(
 //                             mainAxisAlignment: MainAxisAlignment.center,
@@ -277,7 +271,7 @@
 //                               ),
 //                             ],
 //                           ),
-                          
+
 //                           // Bottom spacing for scroll
 //                           SizedBox(height: 20),
 //                         ],
@@ -318,7 +312,7 @@
 //             ),
 //           ),
 //         ),
-        
+
 //         // Enhanced text field container
 //         Container(
 //           decoration: BoxDecoration(
@@ -343,7 +337,7 @@
 //                 color: Colors.white.withOpacity(0.5),
 //                 fontSize: 16,
 //               ),
-//               prefixIcon: prefixIcon != null 
+//               prefixIcon: prefixIcon != null
 //                   ? Icon(
 //                       prefixIcon,
 //                       color: Colors.white.withOpacity(0.6),
@@ -376,8 +370,6 @@
 //   }
 // }
 
-
-
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 ///
@@ -387,8 +379,6 @@
 ///
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
-
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -429,7 +419,7 @@ class _LoginState extends State<Login> {
     final maxWidth = isMobile ? double.infinity : 400.0;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 175, 230, 255),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           // Logo Section
@@ -445,7 +435,7 @@ class _LoginState extends State<Login> {
                     // HexColor.fromHex("#87CEEB"), // Light blue
                     // HexColor.fromHex("#4A90E2"), // Slightly darker blue
                     // HexColor.fromHex("#357ABD"), // Even darker blue
-                    
+
                     HexColor.fromHex("#357ABD"),
                     HexColor.fromHex("#181a1f"),
                     HexColor.fromHex("#357ABD"),
@@ -473,7 +463,7 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          
+
           // Login Form Section
           Expanded(
             flex: 3,
@@ -483,13 +473,14 @@ class _LoginState extends State<Login> {
                 width: double.infinity,
                 // padding: EdgeInsets.only(top: 30),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 175, 230, 255),
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
                 ),
                 child: SingleChildScrollView(
+                  // reverse: true,
                   padding: EdgeInsets.all(isMobile ? 30.0 : 40.0),
                   child: Center(
                     child: Container(
@@ -498,22 +489,24 @@ class _LoginState extends State<Login> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 20),
-                          
-                          // Title
-                          Text(
-                            'Login',
-                            style: GoogleFonts.lato(
-                              color: HexColor.fromHex("#181a1f"),
-                              fontSize: isMobile ? 32 : 36,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: -0.5,
+
+                          // Title - Centered
+                          Center(
+                            child: Text(
+                              'Connexion',
+                              style: GoogleFonts.lato(
+                                color: HexColor.fromHex("#181a1f"),
+                                fontSize: isMobile ? 32 : 36,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -0.5,
+                              ),
                             ),
                           ),
                           SizedBox(height: 10),
-                          
+
                           // Welcome message
                           Text(
-                            "Welcome ! Please login to your account.",
+                            "Bienvenue ! Veuillez saisir vos coordonnées",
                             style: GoogleFonts.lato(
                               color: HexColor.fromHex("#181a1f"),
                               fontSize: 16,
@@ -523,26 +516,26 @@ class _LoginState extends State<Login> {
 
                           // Email input field
                           _buildStyledFormInput(
-                            label: "Email Address",
-                            placeholder: "Enter your email",
+                            label: "Adresse e-mail",
+                            placeholder: "Saisissez votre e-mail",
                             controller: _nameController,
                             keyboardType: TextInputType.emailAddress,
                             prefixIcon: Icons.email_outlined,
                           ),
 
                           SizedBox(height: 20),
-                          
+
                           // Password input field
                           _buildStyledFormInput(
-                            label: "Your Password",
-                            placeholder: "Enter your password",
+                            label: "Votre mot de passe",
+                            placeholder: "Saisissez votre mot de passe",
                             controller: _passController,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: _obscurePassword,
                             prefixIcon: Icons.lock_outline,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscurePassword 
+                                _obscurePassword
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 color: HexColor.fromHex("#4A90E2"),
@@ -555,9 +548,9 @@ class _LoginState extends State<Login> {
                               },
                             ),
                           ),
-                          
+
                           SizedBox(height: isMobile ? 40 : 50),
-                          
+
                           // Sign In button
                           Container(
                             width: double.infinity,
@@ -574,7 +567,8 @@ class _LoginState extends State<Login> {
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: HexColor.fromHex("#4A90E2").withOpacity(0.3),
+                                  color: HexColor.fromHex("#4A90E2")
+                                      .withOpacity(0.3),
                                   blurRadius: 20,
                                   offset: const Offset(0, 10),
                                 ),
@@ -597,7 +591,7 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                               child: Text(
-                                'Sign In',
+                                'Se connecter',
                                 style: GoogleFonts.lato(
                                   fontSize: isMobile ? 18 : 20,
                                   color: Colors.white,
@@ -645,7 +639,7 @@ class _LoginState extends State<Login> {
             ),
           ),
         ),
-        
+
         // Text field container
         Container(
           decoration: BoxDecoration(
@@ -670,7 +664,7 @@ class _LoginState extends State<Login> {
                 color: Colors.grey[500],
                 fontSize: 16,
               ),
-              prefixIcon: prefixIcon != null 
+              prefixIcon: prefixIcon != null
                   ? Icon(
                       prefixIcon,
                       color: HexColor.fromHex("#4A90E2"),
