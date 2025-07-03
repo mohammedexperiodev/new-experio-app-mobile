@@ -40,8 +40,7 @@ class _TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: HexColor.fromHex("#181a1f"),
-        backgroundColor: Colors.blue,
+        backgroundColor: HexColor.fromHex("#181a1f"),
 
         // Enhanced sidebar with callback for title updates
         endDrawer: SidebarMenu(
@@ -54,7 +53,8 @@ class _TimelineState extends State<Timeline> {
 
         // Enhanced app bar with dynamic title switching
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          // backgroundColor: Colors.transparent,
+          backgroundColor: Colors.blue,
           elevation: 0,
           actions: [
             Builder(
@@ -212,6 +212,7 @@ class _TimelineState extends State<Timeline> {
                       itemIndex: 3,
                       notifier: bottomNavigatorTrigger,
                       icon: FeatherIcons.search)
-                ])));
+                ]))
+                );
   }
 }

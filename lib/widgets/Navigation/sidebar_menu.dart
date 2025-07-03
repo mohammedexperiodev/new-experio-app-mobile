@@ -277,6 +277,9 @@ class _SidebarMenuState extends State<SidebarMenu>
             HexColor.fromHex("#357ABD"),
             HexColor.fromHex("#181a1f"),
             HexColor.fromHex("#357ABD"),
+            // HexColor.fromHex("#87CEEB"), // Light blue
+            // HexColor.fromHex("#4A90E2"), // Slightly darker blue
+            // HexColor.fromHex("#357ABD"), // Even darker blue
           ],
         ),
       ),

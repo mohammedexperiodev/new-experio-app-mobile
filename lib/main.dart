@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Taskez',
+      title: 'EXPERIO',
       theme: ThemeData(
         brightness: Brightness.light,
         appBarTheme: AppBarTheme(
