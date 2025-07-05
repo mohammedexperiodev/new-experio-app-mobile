@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taskez/Values/values.dart'; // For HexColor
+import 'package:get/get.dart';
+import 'package:taskez/Screens/Auth/login.dart';
 
 // Model classes for menu structure
 class MenuItem {
@@ -82,9 +84,6 @@ class SidebarMenu extends StatefulWidget {
 
 class _SidebarMenuState extends State<SidebarMenu>
     with TickerProviderStateMixin {
-  // Track which menu item is currently expanded (only ONE at a time)
-  String? currentlyExpanded;
-
   // Animation controllers for smooth transitions
   late AnimationController _slideController;
   late Animation<Offset> _slideAnimation;
@@ -119,118 +118,50 @@ class _SidebarMenuState extends State<SidebarMenu>
 
   // Load menu items from JSON-like structure
   void _loadMenuItems() {
-    // This simulates loading from a JSON file
-    // In real app: final jsonString = await rootBundle.loadString('assets/menu.json');
-    // final menuData = json.decode(jsonString);
-
     final sampleMenuData = [
-    {
-      "title": "Achats",
-      "icon": "shopping_cart",
-      "color": "blue",
-      "children": [
-        {"title": "Bons de commande", "route": "/purchase/orders"},
-        {"title": "Facture d'achat", "route": "/purchase/invoice"},
-        {"title": "Retours d'achat", "route": "/purchase/returns"},
-        {"title": "Gestion des fournisseurs", "route": "/purchase/suppliers"},
-      ]
-    },
-    {
-      "title": "Ventes",
-      "icon": "point_of_sale",
-      "color": "green",
-      "children": [
-        {"title": "Bons de livraison", "route": "/sale/orders"},
-        {"title": "Facture de vente", "route": "/sale/invoice"},
-        {"title": "Retours de vente", "route": "/sale/returns"},
-        {
-          "title": "Gestion des clients",
-          "route": "/sale/customers",
-          "children": [
-            {"title": "Ajouter un client", "route": "/sale/customers/add"},
-            {"title": "Rapports clients", "route": "/sale/customers/reports"},
-          ]
-        },
-      ]
-    },
-    {
-      "title": "Analytique",
-      "icon": "analytics",
-      "color": "purple",
-      "route": "/analytics"
-    },
-    {
-      "title": "Importations",
-      "icon": "input",
-      "color": "orange",
-      "children": [
-        {"title": "Déclaration d'importation", "route": "/imports/declaration"},
-        {"title": "Documents douaniers", "route": "/imports/customs"},
-        {"title": "Détails d'expédition", "route": "/imports/shipping"},
-      ]
-    },
-    {
-      "title": "Exportations",
-      "icon": "output",
-      "color": "teal",
-      "children": [
-        {"title": "Déclaration d'exportation", "route": "/exports/declaration"},
-        {"title": "Documents douaniers", "route": "/exports/customs"},
-        {"title": "Détails d'expédition", "route": "/exports/shipping"},
-      ]
-    },
-    {
-      "title": "Reçus",
-      "icon": "receipt",
-      "color": "amber",
-      "children": [
-        {"title": "Gestion des reçus", "route": "/receipts/management"},
-        {"title": "Rapports de reçus", "route": "/receipts/reports"},
-        {"title": "Modèles de reçus", "route": "/receipts/templates"},
-      ]
-    },
-    {
-      "title": "Banque",
-      "icon": "account_balance",
-      "color": "indigo",
-      "children": [
-        {"title": "Comptes bancaires", "route": "/bank/accounts"},
-        {"title": "Transactions", "route": "/bank/transactions"},
-        {"title": "Relevés bancaires", "route": "/bank/statements"},
-      ]
-    },
-    {
-      "title": "CMI",
-      "icon": "credit_card",
-      "color": "cyan",
-      "children": [
-        {
-          "title": "Gestion des stocks",
-          "route": "/cmi/inventory",
-          "children": [
-            {"title": "Ajouter un stock", "route": "/cmi/inventory/add"},
-            {"title": "Rapports de stock", "route": "/cmi/inventory/reports"},
-          ]
-        },
-        {
-          "title": "Analyse financière",
-          "route": "/cmi/analytics",
-          "children": [
-            {"title": "Analyse des ventes", "route": "/cmi/analytics/sales"},
-            {
-              "title": "Analyse des achats",
-              "route": "/cmi/analytics/purchase"
-            },
-          ]
-        },
-      ]
-    },
-  ];
+      {
+        "title": "Achats",
+        "icon": "shopping_cart",
+        "color": "blue",
+        "route": "/purchase"
+      },
+      {
+        "title": "Ventes",
+        "icon": "point_of_sale",
+        "color": "green",
+        "route": "/sale"
+      },
+      {
+        "title": "Importations",
+        "icon": "input",
+        "color": "orange",
+        "route": "/imports"
+      },
+      {
+        "title": "Exportations",
+        "icon": "output",
+        "color": "teal",
+        "route": "/exports"
+      },
+      {
+        "title": "Reçus",
+        "icon": "receipt",
+        "color": "amber",
+        "route": "/receipts"
+      },
+      {
+        "title": "Banque",
+        "icon": "account_balance",
+        "color": "indigo",
+        "route": "/bank"
+      },
+      {"title": "CMI", "icon": "credit_card", "color": "cyan", "route": "/cmi"},
+    ];
 
-  setState(() {
-    menuItems =
-        sampleMenuData.map((item) => MenuItem.fromJson(item)).toList();
-  });
+    setState(() {
+      menuItems =
+          sampleMenuData.map((item) => MenuItem.fromJson(item)).toList();
+    });
   }
 
   @override
@@ -340,15 +271,10 @@ class _SidebarMenuState extends State<SidebarMenu>
     );
   }
 
-  // Dynamic menu item widget that handles any level of nesting
+  // Dynamic menu item widget - simplified for single items only
   Widget _buildMenuItemWidget(MenuItem item) {
-    if (item.children == null || item.children!.isEmpty) {
-      // Single menu item without children
-      return _buildSingleMenuItem(item);
-    } else {
-      // Expandable menu item with children
-      return _buildExpandableMenuItem(item);
-    }
+    // Only single menu items - no expandable functionality needed
+    return _buildSingleMenuItem(item);
   }
 
   Widget _buildSingleMenuItem(MenuItem item) {
@@ -361,15 +287,12 @@ class _SidebarMenuState extends State<SidebarMenu>
       child: ListTile(
         leading: Icon(
           Icons.keyboard_arrow_right, // Right arrow for single items
-          // color: Colors.grey[400],
-          // color: const Color.fromARGB(255, 0, 0, 0),
           color: Colors.black,
           size: 20,
         ),
         title: Text(
           item.title,
           style: GoogleFonts.lato(
-            // color: Colors.white,
             color: Colors.black,
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -399,206 +322,6 @@ class _SidebarMenuState extends State<SidebarMenu>
         hoverColor: item.color.withOpacity(0.1),
         splashColor: item.color.withOpacity(0.2),
       ),
-    );
-  }
-
-  // Expandable menu item with children
-  Widget _buildExpandableMenuItem(MenuItem item) {
-    bool isExpanded = currentlyExpanded == item.title;
-
-    return Column(
-      children: [
-        // Main menu item
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color:
-                isExpanded ? item.color.withOpacity(0.1) : Colors.transparent,
-          ),
-          child: ListTile(
-            leading: AnimatedRotation(
-              turns: isExpanded ? 0.5 : 0.0,
-              duration: Duration(milliseconds: 200),
-              child: Icon(
-                Icons.keyboard_arrow_down,
-                // color: Colors.grey[400],
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
-            title: Text(
-              item.title,
-              style: GoogleFonts.lato(
-                // color: Colors.white,
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            trailing: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: item.color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                item.icon,
-                color: item.color,
-                size: 22,
-              ),
-            ),
-            onTap: () {
-              setState(() {
-                if (isExpanded) {
-                  currentlyExpanded = null;
-                } else {
-                  currentlyExpanded = item.title;
-                }
-              });
-            },
-            hoverColor: item.color.withOpacity(0.1),
-            splashColor: item.color.withOpacity(0.2),
-          ),
-        ),
-
-        // Children with smooth animation - Better approach with flexible height
-        ClipRect(
-          child: AnimatedAlign(
-            duration: Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            alignment: Alignment.topCenter,
-            heightFactor: isExpanded ? 1.0 : 0.0,
-            child: Container(
-              margin: EdgeInsets.only(left: 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: item.children!
-                    .map((child) =>
-                        _buildChildMenuItem(child, item.color, item.title))
-                    .toList(),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Calculate height needed for children (handles nested children too)
-  double _calculateChildrenHeight(List<MenuItem> children) {
-    double height = 0;
-    for (var child in children) {
-      height += 56; // Increased base height for each child (ListTile height)
-      if (child.children != null && child.children!.isNotEmpty) {
-        height += 48 *
-            child.children!.length; // More accurate height for nested children
-      }
-    }
-    // Add some padding to prevent overflow
-    return height + 20;
-  }
-
-  // Child menu item (can also have children for multilevel support)
-  Widget _buildChildMenuItem(
-      MenuItem child, Color parentColor, String parentTitle) {
-    bool hasChildren = child.children != null && child.children!.isNotEmpty;
-
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-      child: Column(
-        children: [
-          ListTile(
-            dense: true,
-            leading: Icon(
-              hasChildren ? Icons.folder_open : Icons.arrow_forward_ios,
-              // color: Colors.grey[500],
-              color: Colors.black,
-              size: hasChildren ? 16 : 12,
-            ),
-            title: Text(
-              child.title,
-              style: GoogleFonts.lato(
-                // color: Colors.grey[300],
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            trailing: Container(
-              width: 3,
-              height: 20,
-              decoration: BoxDecoration(
-                color: parentColor.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            onTap: () {
-              // Update app bar title with parent-child format
-              if (widget.onMenuItemSelected != null) {
-                widget.onMenuItemSelected!("$parentTitle - ${child.title}");
-              }
-              Navigator.of(context).pop();
-              _navigateToRoute(child.route);
-            },
-            hoverColor: parentColor.withOpacity(0.05),
-            splashColor: parentColor.withOpacity(0.1),
-            contentPadding: EdgeInsets.symmetric(horizontal: 12),
-          ),
-
-          // Handle nested children (multilevel)
-          if (hasChildren)
-            ...child.children!
-                .map((nestedChild) => Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: _buildNestedChildMenuItem(nestedChild, parentColor,
-                          "$parentTitle - ${child.title}"),
-                    ))
-                .toList(),
-        ],
-      ),
-    );
-  }
-
-  // Nested child menu item (third level)
-  Widget _buildNestedChildMenuItem(
-      MenuItem nestedChild, Color parentColor, String fullParentTitle) {
-    return ListTile(
-      dense: true,
-      leading: Icon(
-        Icons.subdirectory_arrow_right,
-        // color: Colors.grey[600],
-        color: Colors.black,
-        size: 14,
-      ),
-      title: Text(
-        nestedChild.title,
-        style: GoogleFonts.lato(
-          // color: Colors.grey[400],
-          color: Colors.black,
-          fontSize: 13,
-          fontWeight: FontWeight.w300,
-        ),
-      ),
-      trailing: Container(
-        width: 2,
-        height: 15,
-        decoration: BoxDecoration(
-          color: parentColor.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(1),
-        ),
-      ),
-      onTap: () {
-        // Update app bar title with full hierarchy
-        if (widget.onMenuItemSelected != null) {
-          widget.onMenuItemSelected!("$fullParentTitle - ${nestedChild.title}");
-        }
-        Navigator.of(context).pop();
-        _navigateToRoute(nestedChild.route);
-      },
-      hoverColor: parentColor.withOpacity(0.03),
-      contentPadding: EdgeInsets.symmetric(horizontal: 16),
     );
   }
 
@@ -633,6 +356,7 @@ class _SidebarMenuState extends State<SidebarMenu>
                 widget.onMenuItemSelected!("Settings");
               }
               Navigator.of(context).pop();
+              _navigateToRoute("/settings"); // Navigate to settings
             },
           ),
           ListTile(
@@ -654,20 +378,79 @@ class _SidebarMenuState extends State<SidebarMenu>
     );
   }
 
-  // Navigation helper
+  // Navigation helper - UPDATED WITH PROPER NAVIGATION
   void _navigateToRoute(String? route) {
     if (route == null || route.isEmpty) {
       print("No route specified");
       return;
     }
+
     print("Navigating to: $route");
-    // Implement your navigation logic here
-    // Navigator.pushNamed(context, route);
+
+    // Use Navigator.pushNamed for navigation
+    try {
+      Navigator.pushNamed(context, route);
+    } catch (e) {
+      print("Navigation error: $e");
+      // Show error message to user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Navigation error: Unable to navigate to $route'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   // Logout helper
   void _handleLogout() {
     print("Logging out...");
-    // Implement your logout logic here
+
+    // Show confirmation dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Confirm Logout',
+            style: GoogleFonts.lato(fontWeight: FontWeight.w600),
+          ),
+          content: Text(
+            'Are you sure you want to logout?',
+            style: GoogleFonts.lato(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+
+                // Navigate to login screen using Get
+                Get.offAll(() =>
+                    Login(email: ""));
+
+                // // Show logout success message
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     content: Text('Logged out successfully'),
+                //     backgroundColor: Colors.green,
+                //   ),
+                // );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

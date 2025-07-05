@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'Screens/splash_screen.dart';
+import 'routes/route_generator.dart';
+import 'routes/app_routes.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -18,15 +19,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: 'EXPERIO',
       theme: ThemeData(
         brightness: Brightness.light,
+        useMaterial3: true,
         appBarTheme: AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
       ),
-      home: SplashScreen(),
+      // Set initial route
+      initialRoute: AppRoutes.splash,
+      // Use our custom route generator
+      onGenerateRoute: RouteGenerator.generateRoute,
+      // Fallback for unknown routes
+      onUnknownRoute: (settings) => RouteGenerator.generateRoute(
+        RouteSettings(name: '/unknown', arguments: settings.arguments),
+      ),
     );
   }
 }
